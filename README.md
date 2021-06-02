@@ -1,3 +1,5 @@
+# INFLUENCE OF AGE, MEDICAL HISTORY, AND SEVERITY OF COVID-19 ON ICU ADMISSION RATE
+
 # PROMPT #1 - DESCRIPTION OF THE DATASET
 We have selected the COVID-19 dataset to perform the analysis. The dataset is a combination of multiple studies carried across different countries. Each row of the dataset represents a cohort of patients. While some studies examine a single cohort, many of them examine multiple cohorts of patients. 
 
