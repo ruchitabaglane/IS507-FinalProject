@@ -1,10 +1,10 @@
-PROMPT #1 - DESCRIPTION OF THE DATASET
+# PROMPT #1 - DESCRIPTION OF THE DATASET
 We have selected the COVID-19 dataset to perform the analysis. The dataset is a combination of multiple studies carried across different countries. Each row of the dataset represents a cohort of patients. While some studies examine a single cohort, many of them examine multiple cohorts of patients. 
 
-SELECTING THE DATA FOR ANALYSIS
+## SELECTING THE DATA FOR ANALYSIS
 The purpose of each study included in the dataset is different and the data being reported varies with every study. The papers which study multiple cohorts have divided their study populations in subgroups. Such studies have included top-level study populations which represent the overall analysis for populations in the subgroups. However, some papers which study multiple cohorts have not included any top-level population. We decided to perform the analysis on the subgroups where available as they give more granular information and drop the top-level populations as they caused repetition in the data being analyzed. We have used the group_by() function in R to group the data based on the ID column and selecting only the subgroups(and overall populations in case of papers studying single cohort) based on the SUB_ID column.
 
-SUMMARY OF MIDTERM SUBMISSION
+## SUMMARY OF MIDTERM SUBMISSION
 We had generated a few plots during midterm project submission which help understand the dataset better.
 1. We wanted to observe the distribution of countries which were included in the studies. For this we have used a pie chart.
 
@@ -22,16 +22,19 @@ It can be observed from the above bar plot that most of the studies were carried
 
 The levels of severity mentioned in the dataset for different studies were not consistent. We had to perform classification of these levels before plotting the bar plot. For example, ‘Mild only’, ‘Mild Only’, ‘Mild’ all have the same meaning. Thus, we classified such rows as Mild Only.
 Here, ‘All’ represents the studies which examine the patients with all levels of severity i.e., Mild, Severe and Asymptomatic. Similarly, ‘Mild and Severe’ represents the studies examining patients with both levels of severity.
+
 3. We further wanted to check the types of patients i.e., survivors or non-survivors, for which the papers have reported the data. We have plotted a bar plot for this.
 
 ![image](https://user-images.githubusercontent.com/77983776/120548636-31183180-c3b8-11eb-9f6c-262111e06298.png)
 
 It can be observed that most of the studies have reported data for the patients who survived as well as those who did not. 
+
 4. Below histogram shows the distribution of number of days spent in the hospital across the studies.
 
 ![image](https://user-images.githubusercontent.com/77983776/120548662-36757c00-c3b8-11eb-979a-70bc521223a2.png)
  
 As it can be observed, the distribution is nearly normal just a few outliers. This indicates that most of the people in study have spent 0 to 30 days in the hospital and a very few have spent over 50 days.
+
 5. Below histogram shows the distribution of number of days it typically took for viral clearance.
 
 ![image](https://user-images.githubusercontent.com/77983776/120548694-3f664d80-c3b8-11eb-9a89-87b8d8d197eb.png)
@@ -45,13 +48,15 @@ Below scatter plots were created to check the if there is any impact of comorbid
              
 From the above scatter plots, we can see that there isn’t a significant effect of comorbidities on the length of hospitalization. Similarly, levels of severity, mean age and comorbidities do not seem to have remarkable impact of the ICU admission rate individually (There might be a combined effect of these 3 factors on the ICU admission rate, which we will analyze in this project further.)
 We could attribute this to the surveys being in the preliminary stage of the pandemic where there was a shortage of speedy recovery medicines leading to majority cases being hospitalized. Similarly, high number of cases with relatively a smaller number of ICU beds available could be the reason for low admission rate in most of the cases.
-PROMPT #2 - STATEMENT OF THE PROPOSED QUESTION
+
+# PROMPT #2 - STATEMENT OF THE PROPOSED QUESTION
 We have proposed below question for our analysis – 
 “How likely a patient would be admitted to an ICU considering his/her age, medical history(comorbidities), and severity of COVID-19?”
 
 This question is particularly important because during the first wave of the pandemic countries around the world experienced a shortage of medical supplies and limited access to the healthcare services. Hospitals were facing shortage of ICU beds which led to a lot of patients not getting appropriate treatment on time and caused many deaths. 
 By examining the effect of medical preconditions, age, and severity of the disease on the ICU admission rate across the studies, we aim to predict the ICU admission rates of the new cohorts of patients. This would help in better management of the healthcare resources and help in more people getting timely treatment. 
-PROMPT #3 – MODEL TO BE USED TO ANSWER PROPOSED QUESTION
+
+# PROMPT #3 – MODEL TO BE USED TO ANSWER PROPOSED QUESTION
 We plan to use KNN Regression for this question. We had initially proposed to KNN classification to predict if the ICU admission is required for a certain patient or not. However, from the feedback we received for the proposal we realized that we could not predict if a patient needs to be admitted in an ICU because not all the studies look at outcomes of admission vs no admission. Thus, we decided to modify the question and fit a model to predict how likely an ICU admission would be. This would result in the outcome being numeric and continuous. Therefore, we decided to perform regression instead of classification.
 KNN is a locality bound algorithm i.e., it assumes samples within a vicinity will perform similarly. For a given sample it identifies the nearest K neighbors to the sample using a distance metric. Once the neighborhood is identified, for a regression problem an average of the target variable from the neighborhood is assigned as the sample's target value.
 We selected KNN model to perform the regression for a number of reasons. 
@@ -67,7 +72,8 @@ Severity is a categorical variable and for KNN regression we usually calculate t
 Thus, we decided to go ahead with Any Comorbidity column which we are assuming to be a representative of all the comorbidities.
 Predictor variables used in the model – Any Comorbidity, Mean Age, Severity Level
 Response Variable – ICU admission
-PROMPT #4 – THE RESULTS OF YOUR FITTED MODEL
+
+# PROMPT #4 – THE RESULTS OF YOUR FITTED MODEL
 1.	Checking Outliers
 Out of the 3 predictor variables, Severity_Level is a categorical variable. Thus, we checked for outliers in only in Mean Age and Any Comorbidity.
 We checked the distribution of the data using qqplot and boxplots to check for the outliers in these two columns:
@@ -76,6 +82,7 @@ We checked the distribution of the data using qqplot and boxplots to check for t
 ![image](https://user-images.githubusercontent.com/77983776/120548810-66bd1a80-c3b8-11eb-9b48-a755ac021520.png)
   
 We can see from the boxplot that there are a couple of outliers in Mean Age column. However, looking at the qqplot we can say that they aren’t digressing much from the line of normality. 
+
 (b)	Any Comorbidity –
 
 ![image](https://user-images.githubusercontent.com/77983776/120548829-6f155580-c3b8-11eb-8de0-6540e33803ed.png)
@@ -117,6 +124,7 @@ Code Snippet:
 ![image](https://user-images.githubusercontent.com/77983776/120548914-8bb18d80-c3b8-11eb-894c-1e6931a7f5aa.png)
  
 Finally, we created a new dataset with the transformed columns and the response variable ICU admission. We dropped the rows from the dataset which had NA or missing values even after the transformations we made.
+
 3.	Selection of the parameter
 To select the best value of K, we have performed cross validation using k-folds technique. We are taking value of k-folds as 5 folds and performing the cross validation for a range of k values from 4 to 24. We were taking a bigger range of k values earlier; however, it was slowing down the code execution tremendously. Thus, we narrowed down the range of k-values.
 
@@ -133,6 +141,7 @@ Next, we plotted the average error rate calculated using CV with the actual trai
  
 The actual test error rate has similar pattern as that of the average error rate from CV. It can be observed that the k-values between ~5 to 10 can be considered as the optimal. 
 We further checked for the k-value (between 5 to 10 )having the minimum error rate. We got k=6 as the best k value with an error rate of ~0.17.
+
 4.	Plot Summarizing the Fit of the Model
 Unlike SLR and MLR, we were not able to directly plot the model to obtain the four residual plots(Residuals vs Fitted and Normal Q-Q plots, Scale-Location, Residuals vs Leverage) to assess the fit of the model. Thus, we manually created Residuals vs Fitted and Normal Q-Q plots of the model.
 Code Snippet:
@@ -147,6 +156,7 @@ Below are the Residuals vs Fitted and Normal Q-Q plots:
  
  
 Looking at the QQ plot we can see that most of the points align well with line of normality. A few points are deviating from the line however overall fit of the model over the data seems reasonable.
+
 5.	Measure of Significance  of the Result
 We tried predicting ICU admission rate for the training dataset using the model we have fit over the data. Below plot shows how well the model predicts the ICU admission rate for the training data.
 
@@ -170,7 +180,8 @@ Below are the values of four statistics to assess the accuracy of predictions ma
 ![image](https://user-images.githubusercontent.com/77983776/120549163-cfa49280-c3b8-11eb-838b-2a90a3d0859a.png)
  
 Looking at the R-Squared value, we can say that 89.5% of the observed variation can be explained by the model's inputs.
-PROMPT #5 – A PREDICTION MADE WITH THE MODEL (INTERPOLATION)
+
+# PROMPT #5 – A PREDICTION MADE WITH THE MODEL (INTERPOLATION)
 To predict ICU admission using interpolation, we have selected rows from the dataset with transformation and with NAs such that the values for Age, Severity_Level and Comorbidity are present, but the ICU admission rate is missing.
 Code snippet:
 
@@ -186,7 +197,7 @@ Below plot shows the values for ICU admission rates predicted by our model for t
 ![image](https://user-images.githubusercontent.com/77983776/120549183-da5f2780-c3b8-11eb-8848-99ad7e7ba0ae.png)
 
 
-PROMPT #6 – CAVEATS IN THE MODEL
+# PROMPT #6 – CAVEATS IN THE MODEL
 1. Measurement error:
 The purpose of each study in the dataset is different, i.e., each study focuses on a different area of interest. For example, a study conducted in a particular country focuses on the cohort of patients who were on ventilators. Such studies will only report data which is significant to the area of interest and leave the rest of the sections empty. This will result in inconsistent data across the different columns in the dataset and produce many missing values. 
 2. Sampling error: 
