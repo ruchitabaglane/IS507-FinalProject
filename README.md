@@ -12,13 +12,12 @@ We had generated a few plots during midterm project submission which help unders
 
 It can be observed that most of the studies(78%) were performed on the patients from China. Thus, we further checked which Provinces or states in China were the most included in the studies. We have created a bar plot for this.
 
-![image](https://user-images.githubusercontent.com/77983776/120548605-26f63300-c3b8-11eb-8cc0-abd03e2ad0ad.png)
+![image](https://user-images.githubusercontent.com/77983776/120549431-36c24700-c3b9-11eb-8328-f04f5de50c0f.png)
 
 It can be observed from the above bar plot that most of the studies were carried out in Wuhan followed by Shenzhen.
 2. Next, we wanted to study the distribution of the different levels of severities of COVID-19 found in the patients across the studies. We used a bar plot for this.
 
-![image](https://user-images.githubusercontent.com/77983776/120548618-2bbae700-c3b8-11eb-9316-96588beba794.png)
-
+![image](https://user-images.githubusercontent.com/77983776/120549442-3aee6480-c3b9-11eb-9dd9-4292a13651e2.png)
  
 
 The levels of severity mentioned in the dataset for different studies were not consistent. We had to perform classification of these levels before plotting the bar plot. For example, ‘Mild only’, ‘Mild Only’, ‘Mild’ all have the same meaning. Thus, we classified such rows as Mild Only.
